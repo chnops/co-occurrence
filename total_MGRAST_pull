@@ -1,6 +1,6 @@
 library(RJSONIO)
 library(matR)
-#setwd("/Users/metagenomics/Desktop/Ryan co-occurrence code/revision_work/")
+setwd("/Users/metagenomics/Desktop/Ryan co-occurrence code/revision_work/")
 msession$setAuth("")
 
 soil.data<-c(Sample1="mgm4455737.3",
@@ -93,9 +93,13 @@ Sample87="mgm4455824.3",
 Sample88="mgm4455825.3"
 )
 
-#cc<-collection(soil.data, Order=c(entry="counts",annot="organism",level="order",source="M5RNA"),
-#	Family=c(entry="counts",annot="organism",level="family",source="M5RNA"),
-#	Genus=c(entry="counts",annot="organism",level="genus",source="M5RNA"))
+cc.soil<-collection(soil.data, Order=c(entry="counts",annot="organism",level="order",source="M5RNA"),
+	Family=c(entry="counts",annot="organism",level="family",source="M5RNA"),
+	Genus=c(entry="counts",annot="organism",level="genus",source="M5RNA"))
+
+write.csv(t(cc.soil$Order),"soil_order.csv")
+write.csv(t(cc.soil$Family),"soil_family.csv")
+write.csv(t(cc.soil$Genus),"soil_genus.csv")
 
 ###apple data
 apple.data<-c(Sample1.ap="mgm4507292.3",
@@ -130,17 +134,17 @@ Sample29.ap="mgm4507312.3",
 Sample30.ap="mgm4507451.3"
 )
 
-#cc<-collection(apple.data, Order=c(entry="counts",annot="organism",level="order",source="M5RNA"),
-#	Family=c(entry="counts",annot="organism",level="family",source="M5RNA"),
-#	Genus=c(entry="counts",annot="organism",level="genus",source="M5RNA"))
-
-#write.csv(t(cc$Order),"apple_order.csv")
-#write.csv(t(cc$Family),"apple_family.csv")
-#write.csv(t(cc$Genus),"apple_genus.csv")
-
-
-total.data<-c(soil.data,apple.data)
-
-cc<-collection(total.data, Order=c(entry="counts",annot="organism",level="order",source="M5RNA"),
+cc.apple<-collection(apple.data, Order=c(entry="counts",annot="organism",level="order",source="M5RNA"),
 	Family=c(entry="counts",annot="organism",level="family",source="M5RNA"),
 	Genus=c(entry="counts",annot="organism",level="genus",source="M5RNA"))
+
+write.csv(t(cc.apple$Order),"apple_order.csv")
+write.csv(t(cc.apple$Family),"apple_family.csv")
+write.csv(t(cc.apple$Genus),"apple_genus.csv")
+
+
+#total.data<-c(soil.data,apple.data)
+
+#cc<-collection(total.data, Order=c(entry="counts",annot="organism",level="order",source="M5RNA"),
+#	Family=c(entry="counts",annot="organism",level="family",source="M5RNA"),
+#	Genus=c(entry="counts",annot="organism",level="genus",source="M5RNA"))
