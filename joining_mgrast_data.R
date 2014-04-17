@@ -1,7 +1,7 @@
 setwd("/Users/metagenomics/Desktop/Ryan co-occurrence code/revision_work/")
 library(reshape)
-soil_order<-read.csv("soil_order.csv")
-soil_order[,1]<-c(
+soil_genus<-read.csv("soil_genus.csv")
+soil_genus[,1]<-c(
 "mgm4455737.3",
 "mgm4455738.3",
 "mgm4455739.3",
@@ -91,10 +91,10 @@ soil_order[,1]<-c(
 "mgm4455824.3",
 "mgm4455825.3"
 )
-names(soil_order)[1]<-"MGRASTid"
+names(soil_genus)[1]<-"MGRASTid"
 
-apple_order<-read.csv("apple_order.csv")
-apple_order[,1]<-c(
+apple_genus<-read.csv("apple_genus.csv")
+apple_genus[,1]<-c(
 "mgm4507292.3",
 "mgm4507293.3",
 "mgm4507294.3",
@@ -126,10 +126,10 @@ apple_order[,1]<-c(
 "mgm4507312.3",
 "mgm4507451.3"
 )
-names(apple_order)[1]<-"MGRASTid"
+names(apple_genus)[1]<-"MGRASTid"
 
-body_order_1<-read.csv("body_1_order.csv")
-body_order_1[,1]<-c(
+body_genus_1<-read.csv("body_1_genus.csv")
+body_genus_1[,1]<-c(
 "mgm4456844.3",
 "mgm4456777.3",
 "mgm4456720.3",
@@ -221,10 +221,10 @@ body_order_1[,1]<-c(
 "mgm4456738.3",
 "mgm4456786.3"
 )
-names(body_order_1)[1]<-"MGRASTid"
+names(body_genus_1)[1]<-"MGRASTid"
 
-body_order_2<-read.csv("body_2_order.csv")
-body_order_2[,1]<-c(
+body_genus_2<-read.csv("body_2_genus.csv")
+body_genus_2[,1]<-c(
 "mgm4456698.3",
 "mgm4456694.3",
 "mgm4456868.3",
@@ -316,25 +316,25 @@ body_order_2[,1]<-c(
 "mgm4456733.3",
 "mgm4456756.3"
 )
-names(body_order_2)[1]<-"MGRASTid"
+names(body_genus_2)[1]<-"MGRASTid"
 
-body_order_3<-read.csv("body_3_order.csv")
-body_order_3[,1]<-c("mgm4456677.3","mgm4456681.3","mgm4456821.3","mgm4456802.3","mgm4456673.3","mgm4456723.3","mgm4456876.3","mgm4456699.3","mgm4456671.3","mgm4456772.3","mgm4456851.3","mgm4456703.3","mgm4456749.3","mgm4456834.3","mgm4456716.3","mgm4456842.3","mgm4456693.3","mgm4456795.3","mgm4456814.3","mgm4456725.3","mgm4456754.3","mgm4456833.3","mgm4456719.3","mgm4456702.3","mgm4456675.3","mgm4456806.3","mgm4456769.3","mgm4456752.3","mgm4456726.3","mgm4456856.3","mgm4456841.3","mgm4456684.3","mgm4456757.3","mgm4456783.3"
+body_genus_3<-read.csv("body_3_genus.csv")
+body_genus_3[,1]<-c("mgm4456677.3","mgm4456681.3","mgm4456821.3","mgm4456802.3","mgm4456673.3","mgm4456723.3","mgm4456876.3","mgm4456699.3","mgm4456671.3","mgm4456772.3","mgm4456851.3","mgm4456703.3","mgm4456749.3","mgm4456834.3","mgm4456716.3","mgm4456842.3","mgm4456693.3","mgm4456795.3","mgm4456814.3","mgm4456725.3","mgm4456754.3","mgm4456833.3","mgm4456719.3","mgm4456702.3","mgm4456675.3","mgm4456806.3","mgm4456769.3","mgm4456752.3","mgm4456726.3","mgm4456856.3","mgm4456841.3","mgm4456684.3","mgm4456757.3","mgm4456783.3"
 )
-names(body_order_3)[1]<-"MGRASTid"
+names(body_genus_3)[1]<-"MGRASTid"
 
 #melting before joining with other datasets before casting
-soil_order_melt<-melt(soil_order, id="MGRASTid")
-apple_order_melt<-melt(apple_order, id="MGRASTid")
-body_order_1_melt<-melt(body_order_1, id="MGRASTid")
-body_order_2_melt<-melt(body_order_2, id="MGRASTid")
-body_order_3_melt<-melt(body_order_3, id="MGRASTid")
+soil_genus_melt<-melt(soil_genus, id="MGRASTid")
+apple_genus_melt<-melt(apple_genus, id="MGRASTid")
+body_genus_1_melt<-melt(body_genus_1, id="MGRASTid")
+body_genus_2_melt<-melt(body_genus_2, id="MGRASTid")
+body_genus_3_melt<-melt(body_genus_3, id="MGRASTid")
 
 
 #cast into data.frame
-total_order<-rbind(soil_order_melt,apple_order_melt,body_order_1_melt,body_order_2_melt,body_order_3_melt)
+total_genus<-rbind(soil_genus_melt,apple_genus_melt,body_genus_1_melt,body_genus_2_melt,body_genus_3_melt)
 #332 is the number of MGRASTid's and should be the number of rows after casting
-total_order_cast<-data.frame(cast(total_order, MGRASTid~variable, value="value",fun.aggregate=sum, add.missing=TRUE))
+total_genus_cast<-data.frame(cast(total_genus, MGRASTid~variable, value="value",fun.aggregate=sum, add.missing=TRUE))
 
-write.csv(total_order_cast, "total_order_mgrastid.csv", row.names=FALSE)
+write.csv(total_genus_cast, "total_genus_mgrastid.csv", row.names=FALSE)
 
