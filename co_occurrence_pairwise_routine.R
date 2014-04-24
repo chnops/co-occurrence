@@ -4,12 +4,12 @@ setwd("/Users/metagenomics/Desktop/Ryan_co-occur_code/revision_work/")
 library(vegan)
 library(reshape)
 
-comm.data<-read.csv("total_genus_info.csv")
+comm.data<-read.csv("total_family_info.csv")
 comm.data<-comm.data[,-1]
-comm.data.read<-subset(comm.data, reads >= 1517)
+comm.data.read<-subset(comm.data, reads >= 1353)
 
 #rarified to 1407
-comm.data<-cbind(comm.data.read[,c(1:4)],rrarefy(comm.data.read[,-c(1:4)],1517))
+comm.data<-cbind(comm.data.read[,c(1:4)],rrarefy(comm.data.read[,-c(1:4)],1353))
 
 
 
@@ -22,7 +22,7 @@ for(a in 1:length(trts)){
 	#pull the first element from the vector of treatments
 	trt.temp<-trts[a]
 	#subset the dataset for those treatments
-	temp<-subset(comm.data, trt==trt.temp)
+	temp<-subset(comm.data, rep==trt.temp)
 	
 	#in this case the community data started at column 4, so the loop for co-occurrence has to start at that point
 	for(b in 5:(dim(temp)[2]-1)){
