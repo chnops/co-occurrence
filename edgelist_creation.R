@@ -35,3 +35,13 @@ for(r in 1:6){
 
 thing<-co_occur_pairs(results)
 head(thing)
+thing$counter<-1
+head(thing)
+library(reshape)
+library(plyr)
+head(thing)
+stats<-ddply(thing, .(rho_cut,pairs), summarise, 
+sums=sum(counter)
+)
+hist(stats$sums)
+head(arrange(subset(stats, rho_cut==0.75), -sums))
