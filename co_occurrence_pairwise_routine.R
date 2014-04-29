@@ -4,24 +4,26 @@ setwd("/Users/metagenomics/Desktop/Ryan_co-occur_code/revision_work/")
 library(vegan)
 library(reshape)
 
-comm.data<-read.csv("total_genus_info.csv")
+comm.data<-read.csv("total_order_info.csv")
 comm.data<-comm.data[,-1]
-comm.data.read<-subset(comm.data, reads >= 1517)
+comm.data.read<-subset(comm.data, reads >= 1407)
 
 #rarified to 1407
-comm.data<-cbind(comm.data.read[,c(1:4)],rrarefy(comm.data.read[,-c(1:4)],1517))
+comm.data<-cbind(comm.data.read[,c(1:4)],rrarefy(comm.data.read[,-c(1:4)],1407))
 
 
 
 trts<-as.vector((unique((comm.data$rep))))
-trts.2<-trts[c(1,6:16)]
+trts<-trts[-c(4,5)]
+
+#trts.2<-trts[c(1,6:16)]
 
 results<-matrix(nrow=0,ncol=7)
 options(warnings=-1)
 
-for(a in 1:length(trts.2)){
+for(a in 1:length(trts)){
 	#pull the first element from the vector of treatments
-	trt.temp<-trts.2[a]
+	trt.temp<-trts[a]
 	#subset the dataset for those treatments
 	temp<-subset(comm.data, rep==trt.temp)
 	
