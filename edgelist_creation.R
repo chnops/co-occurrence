@@ -1,6 +1,11 @@
+library(igraph)
+library(fdrtool)
+library(ggplot2)
+
+?fdrtool
 head(results)
 co_occur_pairs<-function(dataset){
-	#dataset<-results
+	#dataset<-data
 	
 	#head(dataset)
 	final.results<-data.frame()
@@ -10,38 +15,38 @@ co_occur_pairs<-function(dataset){
 for(t in 1:length(trts)){
 	#t<-1
 	dataset_trt<-subset(dataset, trt==trts[t])
-
-	head(dataset_trt)
-	summary(dataset_trt)
+	dataset_trt_no0<-subset(dataset_trt, ab1 > 0 & ab2 > 0)
+	
+	dataset_trt_no0$pairs<-paste(dataset_trt_no0$taxa1,dataset_trt_no0$taxa2)
+	
 for(r in 1:6){
 	#r<-5
-	if(rhos[r] < 0){temp<-subset(dataset_trt, rho <= rhos[r])}
-	if(rhos[r] > 0){temp<-subset(dataset_trt, rho >= rhos[r])}
+	if(rhos[r] < 0){temp<-subset(dataset_trt_no0, rho <= rhos[r])}
+	if(rhos[r] > 0){temp<-subset(dataset_trt_no0, rho >= rhos[r])}
 	if(dim(temp)[1]>1){
-	#head(temp)
+	
 	temp.graph<-simplify(graph.edgelist(as.matrix(temp[,c(2,3)]),directed=FALSE))
 	edge_list<-data.frame(get.edgelist(temp.graph,names=TRUE))
-	#head(edge_list)
+	
 	edge_list$pairs<-paste(edge_list$X1,edge_list$X2)
-	#head(edge_list)
-	edge_list$rho_cut<-rhos[r]
-	edge_list$trt<-trts[t]
-	final.results<-rbind(final.results,edge_list)	}
+	edge_list_pvals<-merge(edge_list,dataset_trt_no0,by="pairs",sort=FALSE  )
+	
+	edge_list_pvals$rho_cut<-rhos[r]
+	edge_list_pvals$trt<-trts[t]
+	
+	edge_list_pvals$qval<-fdrtool(edge_list_pvals$p.value, statistic="pvalue",plot=FALSE,verbose=FALSE)$qval
+	as.matrix(names(edge_list_pvals))
+	
+	final.results<-rbind(final.results,edge_list_pvals[,-c(2:3)])	}
 }
 	print(t/length(trts))
 }
 	return(final.results)
 }
 
-thing<-co_occur_pairs(results)
-head(thing)
-thing$counter<-1
-head(thing)
-library(reshape)
-library(plyr)
-head(thing)
-stats<-ddply(thing, .(rho_cut,pairs), summarise, 
-sums=sum(counter)
-)
-hist(stats$sums)
-head(arrange(subset(stats, rho_cut==0.75), -sums))
+results<-read.csv(file.choose())
+edge_lists<-co_occur_pairs(results)
+dim(edge_lists)
+head(edge_lists)
+write.csv(edge_lists, "edge_lists_family_5-6_thinned.csv",row.names=FALSE)
+
