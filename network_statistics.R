@@ -33,7 +33,7 @@ for(r in 1:length(rhos)){
 	stats$trt<-trts[t]
 	stats$clustering_coeff<-transitivity(temp.graph,type="global")
 	stats$clustering_coeff_rand<-transitivity(erdos.renyi.game(length(V(temp.graph)),length(E(temp.graph)),type="gnm"))
-	
+	stats$cluster_ratio<-stats$clustering_coeff/stats$clustering_coeff_rand
 
 #remove these if using data not from this study
 	stats$cluster_ratio<-stats$clustering_coeff/stats$clustering_coeff_rand
