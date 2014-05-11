@@ -2,14 +2,13 @@ library(igraph)
 library(fdrtool)
 library(ggplot2)
 
-?fdrtool
-head(results)
+
 co_occur_pairs<-function(dataset){
 	#dataset<-data
 	
 	#head(dataset)
 	final.results<-data.frame()
-	rhos<-c(-.75,-.5,-.25,.25,.5,.75)
+	rhos<-c(-.75,-.5,.5,.75)
 	trts<-as.vector(unique(dataset$trt))
 	#trts
 for(t in 1:length(trts)){
@@ -46,7 +45,5 @@ for(r in 1:6){
 
 results<-read.csv(file.choose())
 edge_lists<-co_occur_pairs(results)
-dim(edge_lists)
-head(edge_lists)
-write.csv(edge_lists, "edge_lists_family_5-6_thinned.csv",row.names=FALSE)
+
 
