@@ -26,8 +26,8 @@ for(a in 1:length(trts)){
 	#subset the dataset for those treatments
 	temp<-subset(comm.data, rep==trt.temp)
 	
-	#in this case the community data started at column 4, so the loop for co-occurrence has to start at that point
-	for(b in 5:(dim(temp)[2]-1)){
+	#in this case the community data started at column 6, so the loop for co-occurrence has to start at that point
+	for(b in 6:(dim(temp)[2]-1)){
 		#every species will be compared to every other species, so there has to be another loop that iterates down the rest of the columns
 		for(c in (b+1):(dim(temp)[2])){
 			
