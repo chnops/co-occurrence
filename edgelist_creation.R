@@ -18,7 +18,7 @@ for(t in 1:length(trts)){
 	
 	dataset_trt_no0$pairs<-paste(dataset_trt_no0$taxa1,dataset_trt_no0$taxa2)
 	
-for(r in 1:6){
+for(r in 1:4){
 	#r<-5
 	if(rhos[r] < 0){temp<-subset(dataset_trt_no0, rho <= rhos[r])}
 	if(rhos[r] > 0){temp<-subset(dataset_trt_no0, rho >= rhos[r])}
