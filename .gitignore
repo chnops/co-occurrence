@@ -1,0 +1,4 @@
+data/raw_*
+.tmp
+.Rdata
+.RHistory
