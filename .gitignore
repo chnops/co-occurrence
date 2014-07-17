@@ -2,3 +2,4 @@ data/raw_*
 .tmp
 .Rdata
 .RHistory
+Rplots.pdf

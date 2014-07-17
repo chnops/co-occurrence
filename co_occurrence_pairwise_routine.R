@@ -53,4 +53,4 @@ names(results)<-c("trt","taxa1","taxa2","rho","p.value","ab1","ab2")
 
 write.csv(results, file="data/order_pairwise_spearman.csv")
 #write.csv(results, file="data/family_pairwise_spearman.csv")
-q(save="yes")
+q(save="no")
